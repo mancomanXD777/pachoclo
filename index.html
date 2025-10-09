@@ -3,81 +3,301 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Pachoclo's Comedy - Invitación</title>
+    <title>¡Estás invitado a Pachoclo's Comedy!</title>
     <style>
+        /* Estilos globales */
         body {
-            font-family: Arial, sans-serif;
+            font-family: 'Comic Sans MS', 'Arial', sans-serif; /* Fuente más juguetona */
             background-color: #f0f8ff;
             color: #333;
             margin: 0;
             padding: 20px;
             text-align: center;
+            box-sizing: border-box;
+            overflow-x: hidden; /* Evita el scroll horizontal */
         }
+
+        /* Fondo de patrón animado */
+        body::before {
+            content: '';
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: repeating-linear-gradient(
+                45deg,
+                #ff634720,
+                #ff634720 10px,
+                #4682b420 10px,
+                #4682b420 20px
+            );
+            opacity: 0.1;
+            z-index: -1;
+            animation: background-move 60s linear infinite;
+        }
+
+        @keyframes background-move {
+            from { background-position: 0 0; }
+            to { background-position: 1000px 1000px; }
+        }
+
+        /* Estilos específicos de los elementos */
+        .main-wrapper {
+            max-width: 800px;
+            margin: 0 auto;
+            padding: 20px;
+        }
+
         h1 {
             color: #ff6347;
             font-size: 2.5em;
+            text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.2);
         }
+
         h2 {
             color: #4682b4;
         }
+
         .event-details {
             background-color: #fff;
             border-radius: 10px;
             padding: 20px;
-            box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.15);
             margin: 20px 0;
         }
+
+        .animated-list {
+            list-style: none;
+            padding: 0;
+            margin: 20px 0;
+        }
+
+        .animated-list li {
+            margin-bottom: 10px;
+            /* Estilos iniciales para la animación stagger */
+            opacity: 0;
+            transform: translateX(-20px);
+            transition: opacity 0.5s ease-out, transform 0.5s ease-out;
+        }
+
+        /* Estado visible para la animación stagger de la lista */
+        .animated-list.visible li {
+            opacity: 1;
+            transform: translateX(0);
+        }
+
         .cta {
             font-size: 1.2em;
             background-color: #ff6347;
             color: white;
-            padding: 10px 20px;
+            padding: 12px 25px;
             border-radius: 5px;
             text-decoration: none;
-            transition: background-color 0.3s;
+            display: inline-block;
+            margin-top: 20px;
+            transition: transform 0.2s ease-out, background-color 0.3s;
         }
         .cta:hover {
             background-color: #ff4500;
+            transform: scale(1.05);
         }
+        .cta:active {
+            transform: scale(0.95);
+        }
+
         footer {
-            margin-top: 20px;
-            font-size: 0.9em;
-            color: #777;
+            margin-top: 40px;
+            padding-bottom: 50px; /* Espacio extra al final */
+            color: #555;
+        }
+
+        /* --- Clases de Animación --- */
+        [data-animation] {
+            opacity: 0;
+            transition: opacity 0.6s ease-out, transform 0.6s ease-out;
+        }
+        [data-animation="fade-up"] {
+            transform: translateY(20px);
+        }
+        [data-animation="scale-in"] {
+            transform: scale(0.8);
+        }
+        
+        /* La clase 'visible' activa la animación */
+        [data-animation].visible {
+            opacity: 1;
+            transform: none;
+        }
+
+        /* --- Estilos de Confeti --- */
+        .confetti-container {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            pointer-events: none;
+            overflow: hidden;
+            z-index: 9999;
+        }
+
+        .confetti-piece {
+            position: absolute;
+            width: 10px;
+            height: 10px;
+            opacity: 0;
+            animation: confetti-fall 3s forwards;
+        }
+
+        @keyframes confetti-fall {
+            0% {
+                transform: translateY(-100vh) rotate(0deg);
+                opacity: 1;
+            }
+            100% {
+                transform: translateY(100vh) rotate(720deg);
+                opacity: 0;
+            }
         }
     </style>
 </head>
 <body>
 
-    <h1>🎉 ¡Estás invitado a Pachoclo's Comedy! 🎉</h1>
-    <h2>Una noche de risas y diversión patrocinada por el multimillonario Pachoclo🐍</h2>
+    <div class="main-wrapper">
+        <header>
+            <h1 data-animation="fade-up" data-delay="0.2">🎉 ¡Estás invitado a Pachoclo's Comedy! 🎉</h1>
+            <h2 data-animation="fade-up" data-delay="0.4">Una noche de risas y diversión patrocinada por el multimillonario Pachoclo🐍</h2>
+        </header>
 
-    <div class="event-details">
-        <p><strong>📅 Fecha:</strong> [Todos los domingos]</p>
-        <p><strong>🕒 Hora:</strong> [17:00] hasta (21:00)</p>
-        <p><strong>🌍 Servidor Java:</strong></p>
-        <p><strong>🔗 IP (Java):</strong> [25.ip.gl.ply.gg:18916]</p>
-        <p><strong>🌐 Puerto (Java):</strong> [18916]</p>
+        <div class="event-details" data-animation="fade-up" data-delay="0.6">
+            <p><strong>📅 Fecha:</strong> [Todos los domingos]</p>
+            <p><strong>🕒 Hora:</strong> [17:00] hasta (21:00)</p>
+            <p><strong>🌍 Servidor Java:</strong></p>
+            <p><strong>🔗 IP (Java):</strong> [25.ip.gl.ply.gg:18916]</p>
+            <p><strong>🌐 Puerto (Java):</strong> [18916]</p>
+            <p><strong>🐍 Version Servidor:</strong> 1.21.4</p>
+            <p><strong>🌍 Servidor Bedrock:</strong></p>
+            <p><strong>🔗 IP (Bedrock):</strong> [A Futuro]</p>
+            <p><strong>🌐 Puerto (Bedrock):</strong> [A Futuro]</p>
+        </div>
 
-        <p><strong>🐍 Version Servidor:</strong> 1.21.4</p>
+        <h2 data-animation="fade-up" data-delay="0.8">¿Qué esperar?</h2>
+        
+        <ul class="animated-list" data-animation="stagger-list" data-delay="1.0">
+            <li>🎤 Comediantes.</li>
+            <li>🦌 Nokotans.</li>
+            <li>🚽😁 Skibidis</li>
+        </ul>
 
-        <p><strong>🌍 Servidor Bedrock:</strong></p>
-        <p><strong>🔗 IP (Bedrock):</strong> [A Futuro]</p>
-        <p><strong>🌐 Puerto (Bedrock):</strong> [A Futuro]</p>
+        <h1 data-animation="fade-up" data-delay="1.6">😂 ¡Tú también puedes participar! Trae tus mejores chistes y cuéntalos en el escenario.</h1>
+
+        <a href="https://discord.com/invite/kcwSEE7ext" class="cta" id="cta-button" data-animation="scale-in" data-delay="1.8">
+            yo ya estoy! 🗣️
+        </a>
+
+        <footer data-animation="fade-up" data-delay="2.0">
+            Invita a tus amigos y prepárate para una noche inolvidable. ¡Te esperamos en Pachoclo's Comedy!
+        </footer>
     </div>
 
-    <h2>¿Qué esperar?</h2>
-    <ul>
-        <li>🎤 Comediantes.</li>
-        <li>🦌 Nokotans.</li>
-        <li>🚽😁 Skibidis</li>
-    </ul>
-    
-    <h1>😂 ¡Tú también puedes participar! Trae tus mejores chistes y cuéntalos en el escenario.</h1>
+    <audio id="button-sound" src="https://www.myinstants.com/media/sounds/yo-ya-estoy.mp3" preload="auto"></audio>
 
-    <a href="https://discord.com/invite/kcwSEE7ext" class="cta">yo ya estoy! 🗣️</a>
-    <footer>
-        Invita a tus amigos y prepárate para una noche inolvidable. ¡Te esperamos en Pachoclo's Comedy!
-    </footer>
+    <div id="confetti-container" class="confetti-container"></div>
 
+    <script>
+        document.addEventListener("DOMContentLoaded", () => {
+            // --- LÓGICA DE ANIMACIÓN AL HACER SCROLL (Intersection Observer) ---
+            const animatedElements = document.querySelectorAll("[data-animation]");
+
+            const observer = new IntersectionObserver((entries) => {
+                entries.forEach(entry => {
+                    // Cuando el elemento entra en la vista
+                    if (entry.isIntersecting) {
+                        const animationType = entry.target.dataset.animation;
+                        
+                        // Lógica para la lista con animación escalonada
+                        if (animationType === 'stagger-list') {
+                            entry.target.classList.add('visible');
+                            const listItems = entry.target.querySelectorAll('li');
+                            listItems.forEach((item, index) => {
+                                // Aplica un retraso incremental a cada item de la lista
+                                item.style.transitionDelay = `${index * 0.2}s`;
+                            });
+                        } else {
+                            // Animación normal para otros elementos
+                            entry.target.classList.add('visible');
+                        }
+                        
+                        // Dejar de observar el elemento una vez que se ha animado
+                        observer.unobserve(entry.target);
+                    }
+                });
+            }, {
+                threshold: 0.1, // La animación se dispara cuando el 30% del elemento es visible
+            });
+
+            // Aplicar el observador a cada elemento con el atributo data-animation
+            animatedElements.forEach(el => {
+                // Aplicamos un retraso basado en el atributo data-delay
+                const delay = parseFloat(el.dataset.delay || 0) * 0;
+                // El observador se encargará de mostrarlo, aquí solo definimos el delay de la transición
+                 el.style.transitionDelay = `${delay}ms`;
+                observer.observe(el);
+            });
+
+            // --- LÓGICA DE SONIDO DEL BOTÓN ---
+            const ctaButton = document.getElementById("cta-button");
+            const audio = document.getElementById("button-sound");
+
+            const playSound = () => {
+                audio.currentTime = 0; // Reiniciar
+                audio.play().catch(e => console.error("Error al reproducir sonido:", e));
+            };
+
+            const stopSound = () => {
+                audio.pause();
+                audio.currentTime = 0;
+            };
+
+            ctaButton.addEventListener("mouseenter", playSound);
+            ctaButton.addEventListener("mouseleave", stopSound);
+
+            // --- LÓGICA DE CONFETI ---
+            let confettiShown = false;
+            const confettiContainer = document.getElementById('confetti-container');
+
+            const triggerConfetti = () => {
+                confettiContainer.innerHTML = ''; // Limpiar confeti anterior
+                for (let i = 0; i < 50; i++) {
+                    const confettiPiece = document.createElement('div');
+                    confettiPiece.className = 'confetti-piece';
+                    confettiPiece.style.left = `${Math.random() * 100}%`;
+                    confettiPiece.style.animationDelay = `${Math.random() * 2}s`;
+                    confettiPiece.style.backgroundColor = `hsl(${Math.random() * 360}, 70%, 60%)`;
+                    confettiPiece.style.transform = `rotate(${Math.random() * 360}deg)`;
+                    confettiContainer.appendChild(confettiPiece);
+                }
+            };
+
+            const handleScroll = () => {
+                // Activar confeti al llegar a 100px del final de la página
+                if (window.innerHeight + window.scrollY >= document.body.offsetHeight - 100) {
+                    if (!confettiShown) {
+                        confettiShown = true;
+                        triggerConfetti();
+                        // Ocultar confeti después de 3 segundos y permitir que se active de nuevo
+                        setTimeout(() => {
+                            confettiShown = false;
+                            // Opcional: limpiar el DOM de las piezas de confeti
+                            // confettiContainer.innerHTML = '';
+                        }, 3000);
+                    }
+                }
+            };
+
+            window.addEventListener("scroll", handleScroll);
+        });
+    </script>
 </body>
 </html>
